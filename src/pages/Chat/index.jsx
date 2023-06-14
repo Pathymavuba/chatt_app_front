@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import ChatBar from "../../components/ChatBar";
 import ChatFooter from "../../components/ChatFooter";
 import ChatBody from "../../components/ChatBody";
 
 const ChatPage = ({ socket }) => {
   const [messages,setMessages] =useState([])
+  // const [typingStatus, setTypingStatus] = useState('');
+  const LastMessageRef = useRef()
 
   useEffect(()=>{
 
@@ -13,11 +15,18 @@ const ChatPage = ({ socket }) => {
         
     })
   },[messages,socket])
+
+  useEffect(()=>{
+
+    // 👇️ scroll to bottom every time messages change
+    LastMessageRef.current?.scrollIntoView({behavior:'smooth'})
+  },[messages])
+
   return (
     <div className="chat">
       <ChatBar socket={socket} />
       <div className="chat__main">
-        <ChatBody  messages={messages}/>
+        <ChatBody  messages={messages} LastMessageRef={LastMessageRef}/>
         <ChatFooter socket={socket} />
       </div>
     </div>

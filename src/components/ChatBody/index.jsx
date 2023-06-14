@@ -2,11 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./styled.css";
 
-const ChatBody = ({ messages }) => {
+const ChatBody = ({ messages,lastMessageRef }) => {
   const navigate = useNavigate();
 
   const handleLeaveChat = () => {
     localStorage.removeItem("userName");
+    // socket.emit("disconnect")
     navigate("/");
     window.location.reload();
   };
@@ -42,6 +43,7 @@ const ChatBody = ({ messages }) => {
         <div className="message__status">
           <p>Someone is typing...</p>
         </div>
+         <div ref={lastMessageRef} />
       </div>
     </>
   );
