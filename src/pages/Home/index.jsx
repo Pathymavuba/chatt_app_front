@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styled.css";
 
-const Home = () => {
+const Home = ({socket}) => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [validInput, setValidInput] = useState(false);
@@ -11,6 +11,8 @@ const Home = () => {
     e.preventDefault();
     if (userName.length <= 3) return setValidInput(true);
     localStorage.setItem("userName", userName);
+    //send username and socket id to NodeJS
+    socket.emit('newUser', {userName,socketID:socket.id});
     navigate("/chat");
   };
   const handleName = (e) => {
