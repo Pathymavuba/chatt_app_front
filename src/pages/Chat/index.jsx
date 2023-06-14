@@ -5,7 +5,7 @@ import ChatBody from "../../components/ChatBody";
 
 const ChatPage = ({ socket }) => {
   const [messages,setMessages] =useState([])
-  // const [typingStatus, setTypingStatus] = useState('');
+  const [typingStatus, setTypingStatus] = useState('');
   const LastMessageRef = useRef()
 
   useEffect(()=>{
@@ -22,11 +22,15 @@ const ChatPage = ({ socket }) => {
     LastMessageRef.current?.scrollIntoView({behavior:'smooth'})
   },[messages])
 
+  useEffect(()=>{
+    socket.on('typingReponse',(data)=>setTypingStatus(data))
+  },[socket])
+
   return (
     <div className="chat">
       <ChatBar socket={socket} />
       <div className="chat__main">
-        <ChatBody  messages={messages} LastMessageRef={LastMessageRef}/>
+        <ChatBody  messages={messages} LastMessageRef={LastMessageRef} typingStatus={typingStatus}/>
         <ChatFooter socket={socket} />
       </div>
     </div>
