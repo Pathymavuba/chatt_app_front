@@ -19,11 +19,11 @@ const ChatBody = ({ messages }) => {
           LEAVE CHAT
         </button>
       </header>
-
+      
       {/*This shows messages sent from you*/}
       <div className="message__container">
         {messages.map((message) =>
-          message.name === localStorage.getItem("username") ? (
+          message.name === localStorage.getItem("userName") ? (
             <div className="message__chats" key={message.id}>
               <p className="sender__name">Me</p>
               <div className="message__sender">

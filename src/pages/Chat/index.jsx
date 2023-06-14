@@ -10,6 +10,7 @@ const ChatPage = ({ socket }) => {
 
     socket.on("MessageResponse",(data)=>{
         setMessages([...messages,data])
+        
     })
   },[messages,socket])
   return (
