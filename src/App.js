@@ -8,7 +8,7 @@ const socket = socketI0.connect("http://localhost:4000")
 function App() {
   return (
     <Routes>
-      <Route path="/"  element={<Home/>} />
+      <Route path="/"  element={<Home socket={socket}/>} />
       <Route path ="/chat" element={<ChatPage socket={socket} />} />
     </Routes>
   );
